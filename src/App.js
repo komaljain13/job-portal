@@ -1,34 +1,37 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
-// import Button from './components/button/Button.js';
+import profiles from './mockData/profile.js'
 
-function Button(props){ 
-  return(
-  <button onClick={()=>props.onclickFunction(props.increament)}>+{props.increament}</button>
-  )
+const CardList = (props) => {
+  <div>
+    <card/>
+  </div>
+};
+class Card extends React.Component{
+  render(){
+    const profile = profiles[0];
+    return (
+      <div className="github-profile" style={{margin:'1rem'}}> 
+      <img src={profile.avatar_url} alt={profile.avatar_url} />
+      <div className="info" style={{marginLeft:'10px', display:'inline-block'}}> 
+        <div className="name" style={{fontSize:'125%'}}>{profile.name}...</div>
+        <div className="company-name"> {profile.company}...</div>
+      </div>
+      </div>
+    )
+  }
+
 }
 
-function Display(props){
-  return (
-  <div>{props.message}</div>
-  )
-}
-
-function App() {
-  const [counter,setCounter] = useState(10);
-  const increamentCounter = (increamentValue)=> setCounter(counter+increamentValue);
-  return (
-    <div className="App">
-      <header className="App-header">
-          <Button onclickFunction={increamentCounter} increament={5}/>
-          <Button onclickFunction={increamentCounter} increament={25}/>
-          <Button onclickFunction={increamentCounter} increament={35}/>
-          <Button onclickFunction={increamentCounter} increament={45}/>
-          <Display message={counter}/>
-      </header>
-      
-    </div>
-  );
+class App extends React.Component{
+  render(){
+    return (
+      <div>
+        <div className="header">{this.props.title}</div>
+        <cardList />
+      </div>
+    );
+  } 
 }
 
 export default App;
