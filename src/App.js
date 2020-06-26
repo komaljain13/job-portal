@@ -1,34 +1,28 @@
 import React from 'react';
 import './App.css';
-import profiles from './mockData/profile.js'
+import CardList from './components/card/Card.js';
+import Form from './components/form/Form.js';
 
-const CardList = (props) => {
-  <div>
-    <card/>
-  </div>
-};
-class Card extends React.Component{
-  render(){
-    const profile = profiles[0];
-    return (
-      <div className="github-profile" style={{margin:'1rem'}}> 
-      <img src={profile.avatar_url} alt={profile.avatar_url} />
-      <div className="info" style={{marginLeft:'10px', display:'inline-block'}}> 
-        <div className="name" style={{fontSize:'125%'}}>{profile.name}...</div>
-        <div className="company-name"> {profile.company}...</div>
-      </div>
-      </div>
-    )
-  }
-
-}
 
 class App extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {profiles:[]};
+  }
+
+  addNewProfile = (newProfile) => {
+    console.log('New Profile',newProfile);
+    this.setState(preState => ({
+      profiles:[...preState.profiles,newProfile]
+    }));
+  }
+
   render(){
     return (
       <div>
         <div className="header">{this.props.title}</div>
-        <cardList />
+        <Form onSubmit={this.addNewProfile}/>
+        <CardList profiles={this.state.profiles}/>
       </div>
     );
   } 
